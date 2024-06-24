@@ -15,6 +15,7 @@ def test_dark_theme_by_time():
     assert is_dark_theme is True
 
 
+# noinspection PyTypeChecker
 def test_dark_theme_by_time_and_user_choice():
     """
     Протестируйте правильность переключения темной темы на сайте
@@ -35,7 +36,12 @@ def test_dark_theme_by_time_and_user_choice():
         else:
             return dark_theme_enabled_by_user
 
-    assert is_dark_theme() is True
+    assert is_dark_theme(current_time=time(hour=16), dark_theme_enabled_by_user=True) is True
+    assert is_dark_theme(current_time=time(hour=16), dark_theme_enabled_by_user=False) is False
+    assert is_dark_theme(current_time=time(hour=16), dark_theme_enabled_by_user=None) is False
+    assert is_dark_theme(current_time=time(hour=23), dark_theme_enabled_by_user=None) is True
+    assert is_dark_theme(current_time=time(hour=22), dark_theme_enabled_by_user=None) is True
+    assert is_dark_theme(current_time=time(hour=6), dark_theme_enabled_by_user=None) is False
 
 
 def test_find_suitable_user():
